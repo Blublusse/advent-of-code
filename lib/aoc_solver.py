@@ -2,22 +2,13 @@ from abc import abstractmethod
 import os
 class AOCSolver:
 
-  def __init__(self, dir):
+  def __init__(self, dir, input_parser, part1_solver, part2_solver):
     self.dir = dir
+    self.parse_input = input_parser
+    self.solve_part1 = part1_solver
+    self.solve_part2 = part2_solver
 
-  @abstractmethod
-  def parse_input(self, input):
-    raise NotImplementedError
-
-  @abstractmethod
-  def solve_part1(self, data):
-    raise NotImplementedError
-
-  @abstractmethod
-  def solve_part2(self, data):
-    raise NotImplementedError
-
-  def solve(self):
+  def solve(self, ):
     print("\n# Solutions #######################")
     puzzle1_input = (self.dir / "input1.txt").read_text().strip()
     solution1 = self.solve_part1(self.parse_input(puzzle1_input))
