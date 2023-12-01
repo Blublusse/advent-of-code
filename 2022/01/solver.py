@@ -26,7 +26,14 @@ class Solver(AOCSolver):
         return result
 
     def solve_part2(self, data):
-        return "None"
+        result = []
+        for group in data:
+            group_result = 0
+            for element in group:
+                group_result += element
+            result.append(group_result)
+        result.sort(reverse=True)
+        return result[0] + result[1] + result[2]
 
 solver = Solver(DIR)
 solver.test()
