@@ -12,11 +12,11 @@ class AOCSolver:
     print("\n# Solutions #######################")
     puzzle1_input = (self.dir / "input1.txt").read_text().strip()
     solution1 = self.solve_part1(self.parse_input(puzzle1_input))
-    print("solution 1 : \033[38;5;3m" + str(solution1) + "\033[0;0m")
+    print("1 : \033[38;5;3m" + str(solution1) + "\033[0;0m")
 
     puzzle2_input = (self.dir / "input2.txt").read_text().strip()
     solution2 = self.solve_part2(self.parse_input(puzzle2_input))
-    print("solution 2 : \033[38;5;3m" + str(solution2) + "\033[0;0m\n")
+    print("2 : \033[38;5;3m" + str(solution2) + "\033[0;0m\n")
 
   def test(self):
     print("\n# Tests ###########################")
