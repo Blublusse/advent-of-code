@@ -24,14 +24,14 @@ def get_adjacent_numbers(matrix, x, y):
         line = matrix[yy]
         current_number = ""
         count_number = False
-        for char in line:
+        for xx, char in enumerate(line):
             if type(char) == int:
                 current_number += str(char)
-                if has_special_char_adjacent(data, x, y):
+                if xx >= x-1 and xx <= x+1 and y >= y-1 and y <= y+1:
                     count_number = True
-            if x == len(line) - 1 or type(line[x+1]) != int:
+            if xx == len(line) - 1 or type(line[xx+1]) != int:
                 if count_number:
-                    result += int(current_number)
+                    result.append(int(current_number))
                 current_number = ""
                 count_number = False
     return result
@@ -69,12 +69,14 @@ def solve_part1(data):
 
 def solve_part2(data):
     result = 0
-    # for y, line in enumerate(data):
-    #     for x, char in enumerate(line):
-    #         if char == '*':
-    #             print(char)
+    for y, line in enumerate(data):
+        for x, char in enumerate(line):
+            if char == '*':
+                adjacent_numbers = get_adjacent_numbers(data, x, y)
+                if len(adjacent_numbers) == 2:
+                    result += adjacent_numbers[0] * adjacent_numbers[1]
     return result
 
 solver = AOCSolver(DIR, parse_input, solve_part1, solve_part2)
 solver.test()
-# solver.solve()
+solver.solve()
