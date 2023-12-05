@@ -16,12 +16,6 @@ def get_card_values(data):
         result.append(matches)
     return result
 
-def process_card(sub_cards):
-    result = 0
-    for index in range(sub_cards[0]):
-        result += 1 + process_card(sub_cards[index+1:])
-    return result
-
 def parse_input(input):
     result = []
     for line in input.split("\n"):
@@ -46,10 +40,16 @@ def solve_part1(data):
     return result
 
 def solve_part2(data):
-    card_values = get_card_values(data)
     result = 0
-    for index in range(len(card_values)):
-        result += 1 + process_card(card_values[index:])
+    raw_card_values = get_card_values(data)
+    collected_card_quantities = [1] * len(raw_card_values)
+    while raw_card_values:
+        raw_card_value = raw_card_values.pop(0)
+        card_quantity = collected_card_quantities.pop(0)
+        result += 1 + card_quantity * raw_card_value
+        for c in range(card_quantity):
+            for i in range(raw_card_value):
+                collected_card_quantities[i] += 1
     return result
 
 solver = AOCSolver(DIR, parse_input, solve_part1, solve_part2)
