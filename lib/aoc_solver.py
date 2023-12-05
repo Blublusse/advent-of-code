@@ -22,7 +22,7 @@ class AOCSolver:
     start = time.time()
     solution2 = self.solve_part2(self.parse_input(puzzle2_input))
     end = time.time()
-    print("2 : \033[38;5;3m" + str(solution2) + "\033[0;0m\n" + " (" + str(int((end - start) * 1000)) + "ms)")
+    print("2 : \033[38;5;3m" + str(solution2) + "\033[0;0m" + " (" + str(int((end - start) * 1000)) + "ms)\n")
 
   def test(self):
     print("\n# Tests ###########################")
