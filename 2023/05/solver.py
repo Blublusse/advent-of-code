@@ -11,27 +11,37 @@ def parse_input(input):
     }
     lines = input.split("\n")
     result["seeds"] = lines.pop(0).split(":")[1].split()
-    current_map = {}
+    current_map = []
     for line in lines:
         if "map" in line:
             if current_map:
                 result["maps"].append(current_map.copy())
-                current_map = {}
+                current_map = []
         elif line:
             line_split = line.split()
-            dest_start = int(line_split[0])
-            source_start = int(line_split[1])
-            length = int(line_split[2])
-            for i in range(length):
-                current_map[str(source_start+i)] = str(dest_start+i)
+            current_map.append([
+                int(line_split[0]),
+                int(line_split[1]),
+                int(line_split[2])
+            ])
+    result["maps"].append(current_map.copy())
     return result
+
+def convert(value, map):
+    for map_part in map:
+        source_start = map_part[1]
+        dest_start = map_part[0]
+        length = map_part[2]
+        if value >= source_start and value <= source_start + length:
+            return dest_start + (value - source_start)
+    return value
 
 def solve_part1(data):
     result = 0
     converted_seeds = data["seeds"].copy()
     for map in data["maps"]:
         for i, seed in enumerate(converted_seeds):
-            converted_seeds[i] = map[seed] if seed in map else seed
+            converted_seeds[i] = convert(int(seed), map)
     result = min(converted_seeds)
     return result
 
@@ -40,4 +50,4 @@ def solve_part2(data):
 
 solver = AOCSolver(DIR, parse_input, solve_part1, solve_part2)
 solver.test()
-solver.solve()
+# solver.solve()
